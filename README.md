@@ -1,6 +1,6 @@
 # LiveSplit Server
 
-LiveSplit Server is a LiveSplit component that allows for other programs and other computers to control LiveSplit. 
+LiveSplit Server is a LiveSplit component that allows for other programs and other computers to control LiveSplit.
 
 ## Install
 Consider using the latest development build of LiveSplit available at [http://livesplit.org/LiveSplitDevBuild.zip](http://livesplit.org/LiveSplitDevBuild.zip). This includes the server component and any new features since the last release that applications may depend on.
@@ -10,39 +10,39 @@ Alternatively:
 * Locate your LiveSplit instillation directory
 * Place the contents of the downloaded zip into the "LiveSplit\Components" directory
 
-## Setup 
+## Setup
 
 Add the component to the Layout (Control -> LiveSplit Server). In Layout Settings, you can change the Server Port and view your local IP Address.
 
-### Control 
+### Control
 
 You **MUST** start the Server before programs can talk to it (Right click on LiveSplit -> Control -> Start Server). You **MUST** manually start it each time you launch LiveSplit.
 
 ### Layout Settings
 
-#### Port 
+#### Port
 
 **Port** is the door (1 of thousands) on your computer that this program sends data through. Default is **16834**. This should be fine for most people, but depending on network configurations, some ports may be blocked. See also https://en.wikipedia.org/wiki/Port_%28computer_networking%29
 
-#### Local IP 
+#### Local IP
 
-**Local IP** is the address of your computer on your network. It is needed for other computers or phones on your network to talk to yours. Programs on your computer should be able to use *"localhost"*. 
+**Local IP** is the address of your computer on your network. It is needed for other computers or phones on your network to talk to yours. Programs on your computer should be able to use *"localhost"*.
 
-Note that this is **NOT** your public IP with most network configurations. In most cases, it means nothing if it is seen on stream. **DO NOT** search *"what is my IP"* on stream as that will show you your public IP. 
+Note that this is **NOT** your public IP with most network configurations. In most cases, it means nothing if it is seen on stream. **DO NOT** search *"what is my IP"* on stream as that will show you your public IP.
 
 The local IP is the "IPv4 Address" of the first connected network adapter. This is normally what clients need, but software (such as virtual machines or VPNs) may add network adapters which can appear first. If in doubt, open Command Prompt and run `ipconfig`. The device you are looking for is probably either "Ethernet adapter Ethernet" or "Wireless LAN adapter Wi-Fi".
 
 ### Using Across the Internet
-To make a public server, consider learning to set up a web server and use what you learn. It is probably wiser, safer, and easier to use an IRC bot or something else though. Look at "Known Uses" or ask around. 
+To make a public server, consider learning to set up a web server and use what you learn. It is probably wiser, safer, and easier to use an IRC bot or something else though. Look at "Known Uses" or ask around.
 
-## Known Uses 
+## Known Uses
 
 * **Android LiveSplit Remote**: https://github.com/Ekelbatzen/LiveSplit.Remote.Android
 * **SplitNotes**: https://github.com/joelnir/SplitNotes
 
 Made something cool? Consider getting it added to this list.
 
-## Commands 
+## Commands
 
 Commands are case sensitive and end with a carriage return and a line feed (\r\n). You can provide parameters by using a space after the command and sending the parameters afterwards (`<command><space><parameters><\r\n>`).
 
@@ -79,16 +79,17 @@ The following commands respond with a time:
 
 Other commands:
 
+* getsplits
 * getsplitindex
 * getcurrentsplitname
 * getprevioussplitname
 * getcurrenttimerphase
 
-Commands are defined at `ProcessMessage` in "ServerComponent.cs". 
+Commands are defined at `ProcessMessage` in "ServerComponent.cs".
 
 When using Game Time, it's important that you call "initgametime" once. Once "initgametime" is used, an additional comparison will appear and you can switch to it via the context menu (Compare Against > Game Time). This special comparison will show everything based on the Game Time (every component now shows Game Time based information).
 
-## Example Clients 
+## Example Clients
 
 ### Python 2
 
@@ -116,14 +117,14 @@ public class MainTest {
 
 		try (Socket socket = new Socket(hostName, portNumber);
 				OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8")) {
-			send(str, osw);			
+			send(str, osw);
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println(e.getMessage());
 		}
     }
-	
+
     static void send(String str, OutputStreamWriter o) throws IOException {
 		o.write(str, 0, str.length());
 		o.flush();

@@ -1,6 +1,7 @@
 ﻿using LiveSplit.Model;
 using LiveSplit.Options;
 using LiveSplit.TimeFormatters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -245,6 +246,19 @@ namespace LiveSplit.UI.Components
                     var delta = LiveSplitStateHelper.GetLastDelta(State, State.CurrentSplitIndex, comparison, State.CurrentTimingMethod);
                     var response = DeltaFormatter.Format(delta);
                     clientConnection.SendMessage(response);
+                }
+                else if (message == "getsplits")
+                {
+                    clientConnection.SendMessage(JsonConvert.SerializeObject(State.Run.Select((segment) => {
+                        dynamic result = new System.Dynamic.ExpandoObject();
+                        result.icon = segment.Icon;
+                        result.name = segment.Name;
+                        result.comparison = segment.Comparisons[State.CurrentComparison][State.CurrentTimingMethod];
+                        result.splitTime = segment.SplitTime[State.CurrentTimingMethod];
+                        result.personalBestSplitTime = segment.PersonalBestSplitTime[State.CurrentTimingMethod];
+                        result.bestSegmentTime = segment.BestSegmentTime[State.CurrentTimingMethod];
+                        return result;
+                    })));
                 }
                 else if (message == "getsplitindex")
                 {
